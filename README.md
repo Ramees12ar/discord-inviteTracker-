@@ -32,7 +32,7 @@ examples:
 ```js
 
 require("dotenv").config();
-const InviteTrack=require('./index')
+const InviteTrack=require('@rms/invite-tracker-discord')
 const Database = require("easy-json-database");
 const db = new Database("./db.json")
 let discord = require('discord.js')
