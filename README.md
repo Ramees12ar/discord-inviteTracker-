@@ -1,4 +1,4 @@
-**@rms/invite-tracker-discord** is a module to track discord invites
+**invite-tracker-discord** is a module to track discord invites
 
 > discord inviter tracker has a database which created locally and it used to track the invite activity of discord user. 
 ## Features
@@ -10,7 +10,7 @@
 discord inviter tracker requires [Node.js](https://nodejs.org/) v16+ to run.
 
 ```js
-npm i @rms/invite-tracker-discord
+npm i invite-tracker-discord
 ```
 
 # DOCS
@@ -18,7 +18,7 @@ npm i @rms/invite-tracker-discord
 for starting you will need to require the module
 
 ```js
-let InviteTrack = require('@rms/invite-tracker-discord')
+let InviteTrack = require('invite-tracker-discord')
 ```
 
 then you will need to send the client for the module
@@ -30,9 +30,8 @@ InviteTrack(client)
 
 examples:
 ```js
-
 require("dotenv").config();
-const InviteTrack=require('@rms/invite-tracker-discord')
+const InviteTrack = require('invite-tracker-discord')
 const Database = require("easy-json-database");
 const db = new Database("./db.json")
 let discord = require('discord.js')
@@ -42,16 +41,23 @@ InviteTrack(client);
 client.on('messageCreate', async (message) => {
     let invitesCount = db.get('invitesCount');
     var sorted = {}
-    Object.keys(invitesCount).sort((a, b) => invitesCount[b] - invitesCount[a]).map(item => sorted[item] = invitesCount[item]);
     if (message.content === '/inviteboard') {
-        let leaderboard = "";
-        Object.keys(sorted).forEach(async (inviteId, index) => {
-            leaderboard += `*${index + 1}. <@${inviteId}> with invites **${sorted[inviteId]}***\n`
-        })
-        message.channel.send(leaderboard);
+        if (Object.keys(invitesCount).length > 1) {
+            Object.keys(invitesCount).sort((a, b) => invitesCount[b] - invitesCount[a]).map(item => sorted[item] = invitesCount[item]);
+            let leaderboard = "";
+            Object.keys(sorted).forEach(async (inviteId, index) => {
+                leaderboard += `*${index + 1}. <@${inviteId}> with invites **${sorted[inviteId]}***\n`
+            })
+            message.channel.send(leaderboard);
+        }
+        else {
+            let leaderboard = "";
+            Object.keys(invitesCount).forEach(async (inviteId, index) => {
+                leaderboard += `*${index + 1}. <@${inviteId}> with invites **${invitesCount[inviteId]}***\n`
+            })
+            message.channel.send(leaderboard);
+        }
     }
 });
-
 client.login(token);
 ```
-
