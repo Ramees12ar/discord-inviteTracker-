@@ -1,37 +1,5 @@
-**invite-tracker-discord** is a module to track discord invites
-
-> discord inviter tracker has a database which created locally and it used to track the invite activity of discord user. 
-## Features
-- message to channel when member invite another member
-- message to channel when a member left the channel
-- leaderboard
-## Installation
-
-discord inviter tracker requires [Node.js](https://nodejs.org/) v16+ to run.
-
-```js
-npm i invite-tracker-discord
-```
-
-# DOCS
-
-for starting you will need to require the module
-
-```js
-let InviteTrack = require('invite-tracker-discord')
-```
-
-then you will need to send the client for the module
-
-```js
-InviteTrack(client)
-```
->**/inviteboard** discord command will reply the invites leaderboard 
-
-examples:
-```js
 require("dotenv").config();
-const InviteTrack = require('invite-tracker-discord')
+const InviteTrack = require('./index')
 const Database = require("easy-json-database");
 const db = new Database("./db.json")
 let discord = require('discord.js')
@@ -59,5 +27,5 @@ client.on('messageCreate', async (message) => {
         }
     }
 });
-client.login(token);
-```
+
+client.login(process.env.BOT);

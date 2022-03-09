@@ -56,7 +56,10 @@ module.exports = (async (client) => {
         }
         invites.push(inviteData);
         let inviteCountData = db.get('invitesCount');
-        inviteCountData[`${guildInvite.inviterId}`] = parseFloat(`${guildInvite.uses}`)
+        if (inviteCountData.hasOwnProperty(guildInvite.inviterId)) {
+            inviteCountData[`${guildInvite.inviterId}`] =inviteCountData[`${guildInvite.inviterId}`]+parseFloat(`${guildInvite.uses}`)
+        }
+        else inviteCountData[`${guildInvite.inviterId}`] =parseFloat(`${guildInvite.uses}`)
         db.set('invitesCount', inviteCountData);
         db.set('invites', invites);
     })
@@ -92,10 +95,8 @@ module.exports = (async (client) => {
     client.on('guildMemberRemove', async (member) => {
         let invitedUser = db.get('invited')
         let inviter = invitedUser[`invitedId${member.user.id}`]
-        console.log("Ss", inviter);
         if (inviter) {
             let inviterId = inviter.replace('inviteId', '')
-            console.log("Ss", inviterId);
             let inviteruses = db.get(`invitesCount.${inviterId}`);
             delete invitedUser[`invitedId${member.user.id}`];
             db.set(`invitesCount.${inviterId}`, inviteruses - 1)

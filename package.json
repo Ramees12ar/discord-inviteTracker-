@@ -1,14 +1,10 @@
 {
-  "name": "@rms/invite-tracker-discord",
-  "version": "1.0.0",
+  "name": "invite-tracker-discord",
+  "version": "1.0.2",
   "description": "to tracking discord invites",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ramees12ar/discord-inviteTracker.git"
   },
   "keywords": [
     "discord-tracker",
@@ -17,8 +13,17 @@
   ],
   "author": "ramees_ar",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ramees12ar/discord-inviteTracker-.git"
+  },
   "bugs": {
     "url": "https://github.com/Ramees12ar/discord-inviteTracker/issues"
   },
-  "homepage": "https://github.com/Ramees12ar/discord-inviteTracker#readme"
+  "homepage": "https://github.com/Ramees12ar/discord-inviteTracker-#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "easy-json-database": "^1.5.0"
+  }
 }
